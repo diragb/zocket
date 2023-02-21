@@ -1,6 +1,9 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
+	"os"
+)
 
 // Songs CRUD API
 // @Router	/add/				[POST]
@@ -11,7 +14,8 @@ import "net/http"
 func main() {
 	mux := http.NewServeMux()
 	mux.Handle("/", &API{})
-	if err := http.ListenAndServe(":8000", mux); err != nil {
+	port := os.Getenv("PORT")
+	if err := http.ListenAndServe("0.0.0.0:"+port, mux); err != nil {
 		panic(err)
 	}
 }
